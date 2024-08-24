@@ -1,0 +1,56 @@
+/* style.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+#app {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-fluid {
+    height: 100%;
+}
+
+.row {
+    height: 100%;
+}
+
+.message {
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.webgrid {
+    background-color: lightgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gridCanvas {
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Responsive Layout for Smaller Screens */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Switch to a single column layout */
+        grid-template-rows: auto auto; /* Message on top, canvas below */
+    }
+
+    .message, .webgrid {
+        padding: 10px;
+    }
+}
