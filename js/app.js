@@ -19,6 +19,7 @@ const app = Vue.createApp({
         updateGridSize() {
             const computedStyle = getComputedStyle(document.documentElement);
             this.gridSize = parseInt(computedStyle.getPropertyValue('--grid-size'));
+            this.message = `Grid size: ${this.gridSize} x ${this.gridSize}`;
         },
         drawGrid() {
             const canvas = document.querySelector('#gridCanvas');
@@ -29,15 +30,11 @@ const app = Vue.createApp({
             const parentHeight = parent.offsetHeight;
 
             // Determine the size of the square canvas
-            const size = Math.min(parentWidth, parentHeight);
+            const size = Math.min(parentWidth, parentHeight) * 0.75;
 
             // Set canvas dimensions
-            canvas.width = size * 0.75;
-            canvas.height = size * 0.75;
-
-            // Center the canvas if needed
-            canvas.style.display = 'block';
-            canvas.style.margin = '0 auto';
+            canvas.width = size;
+            canvas.height = size;
 
             const ctx = canvas.getContext('2d');
 
