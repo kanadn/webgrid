@@ -42,6 +42,9 @@ body, html {
     justify-content: center;
 }
 
+:root {
+    --grid-size: 30;
+}
 
 /* Responsive Layout for Smaller Screens */
 @media (max-width: 768px) {
@@ -52,5 +55,9 @@ body, html {
 
     .message, .webgrid {
         padding: 10px;
+    }
+
+    :root {
+        --grid-size: 12;
     }
 }

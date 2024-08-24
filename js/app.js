@@ -6,14 +6,19 @@ const app = Vue.createApp({
         }
     },
     methods: {
-        checkScreenSize() {
-            // Check screen width and adjust grid size
-            const screenWidth = window.innerWidth;
-            if (screenWidth <= 768) {
-                this.gridSize = 12; // For smaller screens (e.g., phones)
-            } else {
-                this.gridSize = 30; // For larger screens (e.g., desktops)
-            }
+        // checkScreenSize() {
+        //     // Check screen width and adjust grid size
+        //     const screenWidth = window.innerWidth;
+        //     if (screenWidth <= 768) {
+        //         this.gridSize = 12; // For smaller screens (e.g., phones)
+        //     } else {
+        //         this.gridSize = 30; // For larger screens (e.g., desktops)
+        //     }
+        //     console.log(`Screen width: ${screenWidth} | Grid size: ${this.gridSize} x ${this.gridSize}`);
+        // },
+        updateGridSize() {
+            const computedStyle = getComputedStyle(document.documentElement);
+            this.gridSize = parseInt(computedStyle.getPropertyValue('--grid-size'));
         },
         drawGrid() {
             const canvas = document.querySelector('#gridCanvas');
@@ -126,8 +131,16 @@ const app = Vue.createApp({
         }
     },
     mounted() {
-        this.checkScreenSize();
+        // this.checkScreenSize();
+        this.updateGridSize();
+        window.addEventListener('resize', this.updateGridSize);
         this.drawGrid();
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.updateGridSize);
+        window.removeEventListener('mousemove', this.drawGrid);
+        window.removeEventListener('mouseleave', this.drawGrid);
+        window.removeEventListener('click', this.drawGrid);
     }
 });
 
