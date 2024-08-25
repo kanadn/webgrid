@@ -30,12 +30,13 @@ const app = Vue.createApp({
             const parentHeight = parent.offsetHeight;
 
             // Determine the size of the square canvas
-            const size = Math.min(parentWidth, parentHeight) * 0.75;
+            const multiplier = this.gridSize === 30 ? 0.82 : 0.90;
+            const size = Math.min(parentWidth, parentHeight) * multiplier;// * 0.82;
 
             // Set canvas dimensions
             canvas.width = size;
             canvas.height = size;
-
+            console.log(`Canvas size: ${canvas.width} x ${canvas.height}`);
             const ctx = canvas.getContext('2d');
 
             // Use dynamic grid size

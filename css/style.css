@@ -53,10 +53,6 @@ body, html {
         grid-template-rows: auto auto; /* Message on top, canvas below */
     }
 
-    .message, .webgrid {
-        padding: 10px;
-    }
-
     :root {
         --grid-size: 12;
     }
