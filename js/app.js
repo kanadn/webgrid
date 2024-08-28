@@ -51,7 +51,7 @@ const app = Vue.createApp({
             this.ctx = this.canvas.getContext('2d');
 
             // Use dynamic grid size
-            this.cellSize = (size / this.gridSize)-1; // subtract 1 so that successive cell-borders don't go out of canvas
+            this.cellSize = (size / this.gridSize)-0.1; // subtract 0.1 so that successive cell-borders don't go out of canvas
 
             for (let i = 0; i < this.gridSize; i++) {
                 this.cells[i] = [];
@@ -74,7 +74,7 @@ const app = Vue.createApp({
         resetLastClickedCell () {
             if (this.lastClickedCell) {
                 const { cellX, cellY } = this.lastClickedCell;
-                this.cells[cellX][cellY].color = 'white';
+                this.cells[cellX][cellY].color = this.cells[cellX][cellY].color === 'red' ? 'red' : 'white';
                 this.lastClickedCell = null;
                 this.draw();
             }
@@ -88,9 +88,6 @@ const app = Vue.createApp({
 
             if (cellX >= 0 && cellX < this.gridSize && cellY >= 0 && cellY < this.gridSize) {
                 console.log(`Cell color: ${this.cells[cellX][cellY].color}`);
-                // if (this.cells[cellX][cellY].color !== 'blue' || this.cells[cellX][cellY].color !== 'red') {
-                //     this.cells[cellX][cellY].color = 'lightgray';
-                // }
                 this.cells[cellX][cellY].color = this.cells[cellX][cellY].color === 'blue' ? 'blue' : 'lightgray';
                 this.lastHoveredCell = { cellX, cellY };
             }
@@ -122,8 +119,13 @@ const app = Vue.createApp({
                 this.cells[cellX][cellY].color = 'red';
                 this.draw();
                 this.score--;
+                setTimeout(() => {
+                    this.cells[cellX][cellY].color = 'white';
+                    this.draw();
+                }, 125);
             }
             this.lastClickedCell = { cellX, cellY };
+            this.resetLastClickedCell();
         },
         startTimer() {
             this.intervalId = setInterval(() => {
